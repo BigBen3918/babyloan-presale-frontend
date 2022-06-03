@@ -1,3 +1,7 @@
+import sub1 from "../assets/images/first.png";
+import sub2 from "../assets/images/second.png";
+import sub3 from "../assets/images/third.png";
+
 export default function Main() {
     const handleBuy = () => {
         alert("abc");
@@ -6,12 +10,18 @@ export default function Main() {
     return (
         <div className="dashboard">
             <div className="spacer-half"></div>
+
+            {/* Begin Header */}
             <div className="container">
                 <div className="header">
                     <h3>bayloanswap</h3>
                 </div>
             </div>
+            {/* End Header */}
 
+            <div className="spacer-half"></div>
+
+            {/* Begin Mainboard */}
             <section className="mainboard">
                 <div className="container">
                     <div className="flex center middle text-center">
@@ -21,6 +31,7 @@ export default function Main() {
                         </h2>
                     </div>
 
+                    {/* Begin Presale Card */}
                     <div className="card">
                         <div className="presale__panel">
                             <h4>Presale Start</h4>
@@ -89,23 +100,70 @@ export default function Main() {
                             </div>
                         </div>
                     </div>
+                    {/* End Presale Card */}
+                </div>
+                <div className="spacer-double"></div>
 
-                    <div className="flex center middle text-center">
-                        <h2>Ecosystem</h2>
-                        <div className="row">
-                            <div className="col-md-4 col-sm-12">
-                                <img src="../assets/images/first.png" alt="" />
-                            </div>
-                            <div className="col-md-4 col-sm-12">
-                                <img src="../assets/images/second.png" alt="" />
-                            </div>
-                            <div className="col-md-4 col-sm-12">
-                                <img src="../assets/images/third.png" alt="" />
-                            </div>
+                {/* Begin Ecosystem Info */}
+                <div className="ecosystem">
+                    <h2>Ecosystem</h2>
+                    <div className="row text-center">
+                        <div className="col-md-4 col-sm-12">
+                            <span>
+                                <img src={sub1} alt="" />
+                                <h4>
+                                    Shared <br /> transaction fees
+                                </h4>
+                                <p>
+                                    It's no secret fees and gas costs can
+                                    quickly eat into profits. Split investment
+                                    costs across all members of a Garden and
+                                    receive a higher profit margin.
+                                </p>
+                            </span>
+                        </div>
+                        <div className="col-md-4 col-sm-12">
+                            <span>
+                                <img src={sub2} alt="" />
+                                <h4>
+                                    Shared <br /> transaction fees
+                                </h4>
+                                <p>
+                                    No single point of control. Deposit or
+                                    withdraw capital at any time.* Garden's are
+                                    trustless smart contracts and only you have
+                                    access to your funds.
+                                </p>
+                            </span>
+                        </div>
+                        <div className="col-md-4 col-sm-12">
+                            <span>
+                                <img src={sub3} alt="" />
+                                <h4>
+                                    Shared <br /> transaction fees
+                                </h4>
+                                <p>
+                                    No need to manually claim and rebalance
+                                    profits. Gardens autocompound investment
+                                    profits across new and existing strategies
+                                    to maintain maxium capital efficiency.
+                                </p>
+                            </span>
                         </div>
                     </div>
                 </div>
+                {/* End Ecosystem Info */}
             </section>
+            {/* End Mainboard */}
+
+            <div className="spacer-double"></div>
+
+            {/* Begin Footer */}
+            <section className="footer">
+                <h3>bayloanswap</h3>
+                <p>Copyright &copy; 2022</p>
+            </section>
+            {/* End Footer */}
         </div>
     );
 }
