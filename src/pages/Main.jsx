@@ -1,12 +1,100 @@
+import React, { useState, useEffect } from "react";
+import { useWallet } from "use-wallet";
+import { ethers } from "ethers";
+
+import { useBlockchainContext } from "../context";
+import { Toast } from "../utils/message";
 import logo from "../assets/images/logo.png";
 import sub1 from "../assets/images/first.png";
 import sub2 from "../assets/images/second.png";
 import sub3 from "../assets/images/third.png";
 
 export default function Main() {
-    const handleBuy = () => {
-        alert("abc");
+    const wallet = useWallet();
+    const [state, { BuyToken }] = useBlockchainContext();
+    // var styledAddress = wallet.account
+    //     ? wallet.account.slice(0, 4) + "..." + wallet.account.slice(-4)
+    //     : "";
+    const [flag, setFlag] = useState(1);
+    const [amount, setAmount] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [tokenAmount, setTokenAmount] = useState(0);
+    const [percent, setPercent] = useState(0);
+
+    useEffect(() => {
+        if (amount > 0) {
+            Number(flag) === 1
+                ? setTokenAmount((amount * state.BNBPrice) / state.price)
+                : setTokenAmount(amount / state.price);
+        } else {
+            setTokenAmount(0);
+        }
+    }, [flag, amount]);
+
+    useEffect(() => {
+        if (state.totalSold !== null && state.totalAmount !== null) {
+            setPercent(
+                Number((state.totalAmount / state.totalSold) * 100).toFixed(2)
+            );
+        } else {
+            setPercent(0);
+        }
+    }, [state.totalSold, state.totalAmount]);
+
+    const handleConnect = () => {
+        wallet.connect();
     };
+
+    const changeNetwork = async () => {
+        if (window.ethereum)
+            try {
+                console.log(window.ethereum);
+                await window.ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [
+                        { chainId: ethers.utils.hexlify(state.supportChainId) },
+                    ],
+                });
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
+    };
+
+    const handleBuy = () => {
+        if (amount.toString().trim() === "" || amount <= 0) {
+            Toast("Please input amount", "warning");
+            return;
+        }
+        if (Number(wallet.chainId) !== state.supportChainId) {
+            changeNetwork();
+            return;
+        }
+        setLoading(true);
+        BuyToken({
+            flag: flag,
+            amount: amount,
+        })
+            .then((res) => {
+                if (res) {
+                    Toast("Successfully Buy", "success");
+                } else {
+                    Toast("Buy Failed", "error");
+                }
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+                Toast("Buy Failed", "error");
+            });
+    };
+
+    const onChangeAmount = (e) => {
+        setAmount(e.target.value);
+    };
+
+    const addToken = () => {};
 
     return (
         <div className="dashboard">
@@ -60,7 +148,7 @@ export default function Main() {
                                         <span>Name: XBT</span>
                                     </div>
                                     <div className="col-sm-6 col-xs-12">
-                                        <span>
+                                        <span onClick={addToken}>
                                             <b>Add to Metamask</b>
                                         </span>
                                     </div>
@@ -68,34 +156,82 @@ export default function Main() {
                                 <div className="spacer-10"></div>
 
                                 <div className="slider">
-                                    <span>Soft Cap</span>
-                                    <div className="bar"></div>
-                                    <div className="spacer-half"></div>
-
-                                    <span>Said Amount</span>
-                                    <div className="bar"></div>
-                                    <div className="spacer-half"></div>
+                                    <span>Sold Amount</span>
+                                    <div className="bar">
+                                        <div
+                                            style={{ width: `${percent}%` }}
+                                        ></div>
+                                    </div>
+                                    <div className="spacer-10"></div>
+                                    <div className="status_bar">
+                                        <div>
+                                            <span>softcap</span>
+                                        </div>
+                                        <div>
+                                            <span>hardcap</span>
+                                        </div>
+                                    </div>
+                                    <div className="spacer-double"></div>
 
                                     <div className="presale__control">
                                         <label>Select: </label>
-                                        <select>
-                                            <option>BNB</option>
+                                        <select
+                                            onChange={(e) =>
+                                                setFlag(e.target.value)
+                                            }
+                                        >
+                                            <option value={1}>BNB</option>
+                                            <option value={2}>BUSD</option>
                                         </select>
                                     </div>
                                     <br />
                                     <div className="presale__control">
                                         <label>Amount: </label>
-                                        <input type="number" />
+                                        <input
+                                            type="number"
+                                            onChange={(e) => onChangeAmount(e)}
+                                        />
                                     </div>
+                                    <br />
+                                    {wallet.status === "connected" ? (
+                                        <div className="presale__control">
+                                            <label>Token Amount: </label>
+                                            <span className="color">
+                                                {state.price === null ||
+                                                state.BNBPrice === null
+                                                    ? "uploading..."
+                                                    : tokenAmount}
+                                            </span>
+                                        </div>
+                                    ) : null}
                                     <div className="spacer-single"></div>
 
                                     <div className="flex middle center">
-                                        <button
-                                            className="button-white"
-                                            onClick={handleBuy}
-                                        >
-                                            Buy XBT Now
-                                        </button>
+                                        {wallet.status === "connecting" ? (
+                                            <button className="button-white">
+                                                Connecting...
+                                            </button>
+                                        ) : wallet.status === "connected" ? (
+                                            loading ? (
+                                                <button className="button-white">
+                                                    Buying...
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    className="button-white"
+                                                    onClick={handleBuy}
+                                                >
+                                                    Buy XBT Now
+                                                </button>
+                                            )
+                                        ) : (
+                                            <button
+                                                className="button-white"
+                                                onClick={handleConnect}
+                                            >
+                                                Wallet Connect
+                                            </button>
+                                        )}
                                     </div>
                                     <div className="spacer-half"></div>
                                 </div>
