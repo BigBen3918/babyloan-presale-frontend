@@ -1,0 +1,133 @@
+$color: white;
+$color_more: #240949;
+
+.spacer-10 {
+    height: 10px;
+}
+
+.spacer-half {
+    height: 15px;
+}
+
+.spacer-single {
+    height: 30px;
+}
+
+.spacer-double {
+    height: 60px;
+}
+
+body {
+    background: linear-gradient(90deg, #441569, #160a4d);
+}
+
+.dashboard {
+    background-image: url("../images/all.png");
+    background-size: cover;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 20px;
+}
+
+.mainboard {
+    .card {
+        display: flex;
+        justify-content: center;
+        .presale__panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(23, 2, 41, 0.92);
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+
+            h4 {
+                text-transform: uppercase;
+            }
+
+            .time {
+                padding: 10px 0;
+                width: 100%;
+                div {
+                    display: flex;
+                    justify-content: center;
+                    span {
+                        font-size: 25px;
+                        font-family: sans-serif;
+                        padding: 20px;
+                        border-radius: 10px;
+                        background-color: #33172e;
+                    }
+                }
+            }
+
+            .presale__content {
+                width: 100%;
+                > div {
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        text-align: center;
+                    }
+
+                    b:hover {
+                        cursor: pointer;
+                        color: #ed5a5b;
+                    }
+                }
+
+                .slider {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    span {
+                        padding: 10px 0;
+                    }
+                    .bar {
+                        height: 12px;
+                        width: 70%;
+                        background: linear-gradient(
+                            to right,
+                            #ed5a5b,
+                            transparent
+                        );
+                        border-radius: 20px;
+                    }
+                    .presale__control {
+                        width: 70%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        input,
+                        select {
+                            width: 200px;
+                        }
+                    }
+                    .button-white {
+                        border-radius: 10px;
+                        background-color: #ed5a5b;
+                        color: var(--default-color-2);
+                        padding: 13px 50px;
+                        font-size: 20px;
+                        font-weight: bolder;
+                        cursor: pointer;
+                        transition: 0.3s;
+                        box-shadow: 0px 0px 20px -5px rgb(253, 125, 125) !important;
+                        border: none;
+                        color: black;
+                        &:hover {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
