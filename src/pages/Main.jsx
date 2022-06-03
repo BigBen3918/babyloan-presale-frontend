@@ -1,3 +1,4 @@
+import logo from "../assets/images/logo.png";
 import sub1 from "../assets/images/first.png";
 import sub2 from "../assets/images/second.png";
 import sub3 from "../assets/images/third.png";
@@ -14,6 +15,7 @@ export default function Main() {
             {/* Begin Header */}
             <div className="container">
                 <div className="header">
+                    <img src={logo} alt="" />
                     <h3>bayloanswap</h3>
                 </div>
             </div>
@@ -54,10 +56,10 @@ export default function Main() {
 
                             <div className="presale__content">
                                 <div className="row">
-                                    <div className="col-md-6 col-sm-12">
+                                    <div className="col-sm-6 col-xs-12">
                                         <span>Name: XBT</span>
                                     </div>
-                                    <div className="col-md-6 col-sm-12">
+                                    <div className="col-sm-6 col-xs-12">
                                         <span>
                                             <b>Add to Metamask</b>
                                         </span>
@@ -160,7 +162,10 @@ export default function Main() {
 
             {/* Begin Footer */}
             <section className="footer">
-                <h3>bayloanswap</h3>
+                <div>
+                    <img src={logo} alt="" />
+                    <h3>bayloanswap</h3>
+                </div>
                 <p>Copyright &copy; 2022</p>
             </section>
             {/* End Footer */}
