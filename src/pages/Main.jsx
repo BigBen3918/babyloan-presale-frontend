@@ -335,12 +335,22 @@ export default function Main() {
                                 <p>
                                     Babylon Token (XBT) is a very scarce asset
                                     with unlimited demand from the stakers and
-                                    the players of the revolutionary Casino
-                                    BabylonGame which can be accessed from the
-                                    BabylonSwap portal. Babylon Token (XBT) is
-                                    the first ever perfectly pegged asset in
-                                    human history thanks to the unalterable
-                                    unhackable preset parameters of BabylonSwap.
+                                    the players of the revolutionary Casino{" "}
+                                    <a href="https://game.babylonswap.finance">
+                                        BabylonGame
+                                    </a>{" "}
+                                    which can be accessed from the{" "}
+                                    <a href="https://babylonswap.finance">
+                                        BabylonSwap
+                                    </a>{" "}
+                                    portal. Babylon Token (XBT) is the first
+                                    ever perfectly pegged asset in human history
+                                    thanks to the unalterable unhackable preset
+                                    parameters of{" "}
+                                    <a href="https://babylonswap.finance">
+                                        BabylonSwap
+                                    </a>
+                                    .
                                 </p>
                             </span>
                         </div>
@@ -355,16 +365,23 @@ export default function Main() {
                                     Every BUSD and BNB that arrives to the
                                     Babylon Treasury from this Presale will be
                                     used to add liquidity to the XBT markets
-                                    inside BabylonSwap in the most strategic way
-                                    possible. We choose to do it strategically
-                                    to maximize the gains of the XBT hodlers and
-                                    optimize the price discovery mechanism of
-                                    XBT and make the price stabilize at the
-                                    highest possible levels. This is possible
-                                    thanks to the unhackable unalterable preset
-                                    parameters of BabylonSwap which offer the
-                                    concept of Perfect Peg for the first time in
-                                    human history.
+                                    inside{" "}
+                                    <a href="https://babylonswap.finance">
+                                        BabylonSwap
+                                    </a>{" "}
+                                    in the most strategic way possible. We
+                                    choose to do it strategically to maximize
+                                    the gains of the XBT hodlers and optimize
+                                    the price discovery mechanism of XBT and
+                                    make the price stabilize at the highest
+                                    possible levels. This is possible thanks to
+                                    the unhackable unalterable preset parameters
+                                    of{" "}
+                                    <a href="https://babylonswap.finance">
+                                        BabylonSwap
+                                    </a>{" "}
+                                    which offer the concept of Perfect Peg for
+                                    the first time in human history.
                                 </p>
                             </span>
                         </div>
@@ -378,13 +395,16 @@ export default function Main() {
                                 </h4>
                                 <p>
                                     Blockchain is about abundance, not scarcity.
-                                    Kindly read the Glossary section in the
-                                    BabylonSwap Website to understand exactly
-                                    what we mean and to understand why investing
-                                    any amount in this Presale will be the most
-                                    important step you’ll ever make to achieve
-                                    your natural right of being financially free
-                                    for the rest of your life.
+                                    Kindly read the Glossary section in the{" "}
+                                    <a href="https://babylonswap.finance">
+                                        BabylonSwap
+                                    </a>{" "}
+                                    Website to understand exactly what we mean
+                                    and to understand why investing any amount
+                                    in this Presale will be the most important
+                                    step you’ll ever make to achieve your
+                                    natural right of being financially free for
+                                    the rest of your life.
                                 </p>
                             </span>
                         </div>

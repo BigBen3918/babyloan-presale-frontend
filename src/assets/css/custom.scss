@@ -196,6 +196,9 @@ body {
             }
         }
     }
+    a {
+        color: $color;
+    }
     @media screen and (max-width: 768px) {
         .row {
             span {
