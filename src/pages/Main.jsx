@@ -33,7 +33,13 @@ export default function Main() {
         else {
             setRestTime({
                 day: Math.floor(state.terms.duration / (24 * 3600)),
-                hour: Math.floor(state.terms.duration / 3600),
+                hour: Math.floor(
+                    (state.terms.duration -
+                        Math.floor(state.terms.duration / (24 * 3600)) *
+                            3600 *
+                            24) /
+                        3600
+                ),
                 min: Math.floor(
                     (state.terms.duration -
                         Math.floor(state.terms.duration / 3600) * 3600) /
@@ -87,7 +93,7 @@ export default function Main() {
             return;
         }
         if (Number(wallet.chainId) !== state.supportChainId) {
-            Toast("Please use Fantomtestnet", "warning");
+            Toast("Please use Smart Chain", "warning");
             return;
         }
         setLoading(true);
@@ -281,7 +287,7 @@ export default function Main() {
                                             <span className="color">
                                                 {state.price === null ||
                                                 state.BNBPrice === null
-                                                    ? "uploading..."
+                                                    ? "updating..."
                                                     : tokenAmount}
                                             </span>
                                         </div>

@@ -8,7 +8,12 @@ import React, {
 import { ethers } from "ethers";
 import { useWallet } from "use-wallet";
 
-import { presaleContract, BUSDContract, supportChainId } from "../contract";
+import {
+    presaleContract,
+    BUSDContract,
+    supportChainId,
+    provider,
+} from "../contract";
 import { toBigNum, fromBigNum } from "../utils";
 
 const BlockchainContext = createContext();
@@ -90,8 +95,13 @@ export default function Provider({ children }) {
     };
 
     const getTotal = async () => {
-        const provider = new ethers.providers.Web3Provider(wallet.ethereum);
-        let bnbBalance = await provider.getBalance(presaleContract.address);
+        var mainProvider;
+        if (wallet.status === "connected") {
+            mainProvider = new ethers.providers.Web3Provider(wallet.ethereum);
+        } else {
+            mainProvider = provider;
+        }
+        let bnbBalance = await mainProvider.getBalance(presaleContract.address);
         let busdBalance = await BUSDContract.balanceOf(presaleContract.address);
         let total =
             fromBigNum(bnbBalance, 18) * state.BNBPrice +
