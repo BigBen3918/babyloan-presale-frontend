@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useWallet } from "use-wallet";
-import { ethers } from "ethers";
 
 import { useBlockchainContext } from "../context";
 import { Toast } from "../utils/message";
@@ -243,7 +242,8 @@ export default function Main() {
 
                                 <div className="slider">
                                     <span>
-                                        Sold Amount ({state.totalSold} $)
+                                        Sold Amount (
+                                        {Number(state.totalSold).toFixed(2)} $)
                                     </span>
                                     <div className="bar">
                                         <div

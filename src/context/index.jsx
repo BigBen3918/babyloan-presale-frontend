@@ -39,7 +39,7 @@ function reducer(state, { type, payload }) {
 const INIT_STATE = {
     signer: null,
     price: null,
-    BNBPrice: null,
+    BNBPrice: 300,
     totalSold: 0,
     totalAmount: 1000000,
     supportChainId: supportChainId,
@@ -55,6 +55,8 @@ export default function Provider({ children }) {
     /* ------------ Wallet Section ------------- */
     useEffect(() => {
         getTerm();
+        getPrice();
+        getTotal();
     }, []);
 
     useEffect(() => {
@@ -95,13 +97,7 @@ export default function Provider({ children }) {
     };
 
     const getTotal = async () => {
-        var mainProvider;
-        if (wallet.status === "connected") {
-            mainProvider = new ethers.providers.Web3Provider(wallet.ethereum);
-        } else {
-            mainProvider = provider;
-        }
-        let bnbBalance = await mainProvider.getBalance(presaleContract.address);
+        let bnbBalance = await provider.getBalance(presaleContract.address);
         let busdBalance = await BUSDContract.balanceOf(presaleContract.address);
         let total =
             fromBigNum(bnbBalance, 18) * state.BNBPrice +
