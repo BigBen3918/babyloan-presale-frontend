@@ -35,7 +35,7 @@ const INIT_STATE = {
     signer: null,
     price: null,
     BNBPrice: null,
-    totalSold: null,
+    totalSold: 0,
     totalAmount: 1000000,
     supportChainId: supportChainId,
     terms: null,
@@ -50,12 +50,7 @@ export default function Provider({ children }) {
     /* ------------ Wallet Section ------------- */
     useEffect(() => {
         getTerm();
-        getPrice();
     }, []);
-
-    useEffect(() => {
-        getTotal();
-    }, [state.BNBPrice]);
 
     useEffect(() => {
         const getSigner = async () => {
@@ -72,6 +67,8 @@ export default function Provider({ children }) {
         };
 
         getSigner();
+        getPrice();
+        getTotal();
     }, [wallet.status]);
 
     const getPrice = async () => {

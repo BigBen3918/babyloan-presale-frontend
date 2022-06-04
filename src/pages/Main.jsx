@@ -131,8 +131,35 @@ export default function Main() {
         setAmount(e.target.value);
     };
 
-    const addToken = () => {
-        console.log(addToken);
+    const addToken = async () => {
+        if (wallet.status !== "connected") {
+            Toast("Please connect wallet", "warning");
+            return;
+        }
+
+        let tokenAddress = "0x845f430E9B5F9c7C983A73a4108ca55940516872";
+        let tokenSymbol = "XBT";
+        let tokenDecimals = 18;
+        let tokenImage = "https://babylonswap.finance/favicon.ico";
+
+        try {
+            // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+            await window.ethereum.request({
+                method: "wallet_watchAsset",
+                params: {
+                    type: "ERC20", // Initially only supports ERC20, but eventually more!
+                    options: {
+                        address: tokenAddress, // The address that the token is at.
+                        symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                        decimals: tokenDecimals, // The number of decimals in the token
+                        image: tokenImage, // A string url of the token logo
+                    },
+                },
+            });
+        } catch (error) {
+            console.log(error);
+            Toast("Failed token add", "error");
+        }
     };
 
     return (
@@ -174,7 +201,7 @@ export default function Main() {
                                     <span>
                                         {restTime === null
                                             ? null
-                                            : restTime.day.length > 1
+                                            : restTime.day > 9
                                             ? restTime.day
                                             : "0" + restTime.day}
                                     </span>
@@ -183,7 +210,7 @@ export default function Main() {
                                     <span>
                                         {restTime === null
                                             ? null
-                                            : restTime.hour.length > 1
+                                            : restTime.hour > 9
                                             ? restTime.hour
                                             : "0" + restTime.hour}
                                     </span>
@@ -192,7 +219,7 @@ export default function Main() {
                                     <span>
                                         {restTime === null
                                             ? null
-                                            : restTime.min.length > 1
+                                            : restTime.min > 9
                                             ? restTime.min
                                             : "0" + restTime.min}
                                     </span>
@@ -201,7 +228,7 @@ export default function Main() {
                                     <span>
                                         {restTime === null
                                             ? null
-                                            : restTime.sec > 1
+                                            : restTime.sec > 9
                                             ? restTime.sec
                                             : "0" + restTime.sec}
                                     </span>
@@ -211,10 +238,13 @@ export default function Main() {
 
                             <div className="presale__content">
                                 <div className="row">
-                                    <div className="col-sm-6 col-xs-12">
+                                    <div className="col-sm-4 col-xs-12">
                                         <span>Symbol: XBT</span>
                                     </div>
-                                    <div className="col-sm-6 col-xs-12">
+                                    <div className="col-sm-4 col-xs-12">
+                                        <span>Price: {state.price}</span>
+                                    </div>
+                                    <div className="col-sm-4 col-xs-12">
                                         <span onClick={addToken}>
                                             <b>Add to Metamask</b>
                                         </span>
