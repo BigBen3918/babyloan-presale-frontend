@@ -8,12 +8,7 @@ import React, {
 import { ethers } from "ethers";
 import { useWallet } from "use-wallet";
 
-import {
-    presaleContract,
-    BUSDContract,
-    supportChainId,
-    XBTContract,
-} from "../contract";
+import { presaleContract, BUSDContract, supportChainId } from "../contract";
 import { toBigNum, fromBigNum } from "../utils";
 
 const BlockchainContext = createContext();
@@ -23,6 +18,13 @@ export function useBlockchainContext() {
 }
 
 function reducer(state, { type, payload }) {
+    if (type == "increaseCTime") {
+        console.log("setInterval", state.cTime);
+        return {
+            ...state,
+            cTime: state.cTime + 1,
+        };
+    }
     return {
         ...state,
         [type]: payload,
@@ -31,12 +33,14 @@ function reducer(state, { type, payload }) {
 
 const INIT_STATE = {
     signer: null,
-    provider: null,
     price: null,
     BNBPrice: null,
     totalSold: null,
-    totalAmount: null,
+    totalAmount: 1000000,
     supportChainId: supportChainId,
+    terms: null,
+    cTime: 0,
+    interval: null,
 };
 
 export default function Provider({ children }) {
@@ -45,9 +49,13 @@ export default function Provider({ children }) {
 
     /* ------------ Wallet Section ------------- */
     useEffect(() => {
+        getTerm();
         getPrice();
-        getTotalSupply();
     }, []);
+
+    useEffect(() => {
+        getTotal();
+    }, [state.BNBPrice]);
 
     useEffect(() => {
         const getSigner = async () => {
@@ -59,10 +67,6 @@ export default function Provider({ children }) {
                 dispatch({
                     type: "signer",
                     payload: signer,
-                });
-                dispatch({
-                    type: "provider",
-                    payload: provider,
                 });
             }
         };
@@ -76,14 +80,13 @@ export default function Provider({ children }) {
             let term = await presaleContract.terms();
             dispatch({
                 type: "price",
-                payload: fromBigNum(price, 0) / 10 ** 6,
-            });
-            dispatch({
-                type: "BNBPrice",
-                payload: fromBigNum(term.bnbPrice, 0) / 10 ** 6,
+                payload: fromBigNum(price, 6),
             });
 
-            getTotal();
+            dispatch({
+                type: "BNBPrice",
+                payload: fromBigNum(term.bnbPrice, 6),
+            });
         } catch (err) {
             console.log(err);
         }
@@ -94,19 +97,66 @@ export default function Provider({ children }) {
         let bnbBalance = await provider.getBalance(presaleContract.address);
         let busdBalance = await BUSDContract.balanceOf(presaleContract.address);
         let total =
-            (bnbBalance * state.BNBPrice) / state.price +
-            busdBalance / state.price;
+            fromBigNum(bnbBalance, 18) * state.BNBPrice +
+            fromBigNum(busdBalance, 18);
+
         dispatch({
             type: "totalSold",
             payload: total,
         });
     };
 
-    const getTotalSupply = async () => {
-        let total = await XBTContract.totalSupply();
+    const getTerm = async () => {
+        let terms = await presaleContract.terms();
+
+        let startTime = fromBigNum(terms.startTime, 0);
+        let period = fromBigNum(terms.period, 0);
+        let roundCount = fromBigNum(terms.roundCount, 0);
+
         dispatch({
-            type: "totalAmount",
-            payload: fromBigNum(total, 18),
+            type: "initTerms",
+            payload: {
+                startTime,
+                period,
+                roundCount,
+            },
+        });
+
+        setInterval(() => {
+            updateTerms({
+                startTime,
+                period,
+                roundCount,
+            });
+        }, 1000);
+    };
+
+    const updateTerms = (props) => {
+        let nowTime = new Date().valueOf() / 1000;
+        let status, duration, roundNum;
+        let { startTime, period, roundCount } = props;
+        if (nowTime < startTime) {
+            duration = startTime - nowTime;
+            status = "Presale start in";
+            roundNum = 0;
+        } else {
+            if (nowTime > startTime + period * roundCount) {
+                duration = 0;
+                status = "Presale ended";
+                roundNum = 11;
+            } else {
+                roundNum = Math.floor((nowTime - startTime) / period) + 1;
+                duration = startTime + roundNum * period - nowTime;
+                status = "round end in";
+            }
+        }
+        dispatch({
+            type: "terms",
+            payload: {
+                duration,
+                roundNum,
+                status,
+            },
         });
     };
 
@@ -143,7 +193,10 @@ export default function Provider({ children }) {
 
     return (
         <BlockchainContext.Provider
-            value={useMemo(() => [state, { dispatch, BuyToken }], [state])}
+            value={useMemo(
+                () => [state, { dispatch, BuyToken, getTotal }],
+                [state]
+            )}
         >
             {children}
         </BlockchainContext.Provider>

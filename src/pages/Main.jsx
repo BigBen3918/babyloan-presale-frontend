@@ -11,7 +11,7 @@ import sub3 from "../assets/images/third.png";
 
 export default function Main() {
     const wallet = useWallet();
-    const [state, { BuyToken }] = useBlockchainContext();
+    const [state, { BuyToken, getTotal }] = useBlockchainContext();
     // var styledAddress = wallet.account
     //     ? wallet.account.slice(0, 4) + "..." + wallet.account.slice(-4)
     //     : "";
@@ -20,6 +20,42 @@ export default function Main() {
     const [loading, setLoading] = useState(false);
     const [tokenAmount, setTokenAmount] = useState(0);
     const [percent, setPercent] = useState(0);
+    const [restTime, setRestTime] = useState(null);
+
+    useEffect(() => {
+        if (!state.terms)
+            setRestTime({
+                day: 0,
+                hour: 0,
+                min: 0,
+                sec: 0,
+            });
+        else {
+            setRestTime({
+                day: Math.floor(state.terms.duration / (24 * 3600)),
+                hour: Math.floor(state.terms.duration / 3600),
+                min: Math.floor(
+                    (state.terms.duration -
+                        Math.floor(state.terms.duration / 3600) * 3600) /
+                        60
+                ),
+                sec: Math.floor(
+                    state.terms.duration -
+                        (Math.floor(state.terms.duration / 3600) * 3600 +
+                            Math.floor(
+                                Math.floor(
+                                    (state.terms.duration -
+                                        Math.floor(
+                                            state.terms.duration / 3600
+                                        ) *
+                                            3600) /
+                                        60
+                                ) * 60
+                            ))
+                ),
+            });
+        }
+    }, [state.terms]);
 
     useEffect(() => {
         if (amount > 0) {
@@ -32,14 +68,14 @@ export default function Main() {
     }, [flag, amount]);
 
     useEffect(() => {
-        if (state.totalSold !== null && state.totalAmount !== null) {
+        if (state.totalSold !== null) {
             setPercent(
-                Number((state.totalAmount / state.totalSold) * 100).toFixed(2)
+                Number((state.totalSold / state.totalAmount) * 100).toFixed(2)
             );
         } else {
             setPercent(0);
         }
-    }, [state.totalSold, state.totalAmount]);
+    }, [state.totalSold]);
 
     const handleConnect = () => {
         wallet.connect();
@@ -78,6 +114,7 @@ export default function Main() {
             .then((res) => {
                 if (res) {
                     Toast("Successfully Buy", "success");
+                    getTotal();
                 } else {
                     Toast("Buy Failed", "error");
                 }
@@ -94,7 +131,9 @@ export default function Main() {
         setAmount(e.target.value);
     };
 
-    const addToken = () => {};
+    const addToken = () => {
+        console.log(addToken);
+    };
 
     return (
         <div className="dashboard">
@@ -124,20 +163,48 @@ export default function Main() {
                     {/* Begin Presale Card */}
                     <div className="card">
                         <div className="presale__panel">
-                            <h4>Presale Start</h4>
+                            <h4>
+                                {state.terms
+                                    ? state.terms.status
+                                    : "Presale start in"}
+                            </h4>
 
                             <div className="row time">
                                 <div className="col-3">
-                                    <span>00</span>
+                                    <span>
+                                        {restTime === null
+                                            ? null
+                                            : restTime.day.length > 1
+                                            ? restTime.day
+                                            : "0" + restTime.day}
+                                    </span>
                                 </div>
                                 <div className="col-3">
-                                    <span>02</span>
+                                    <span>
+                                        {restTime === null
+                                            ? null
+                                            : restTime.hour.length > 1
+                                            ? restTime.hour
+                                            : "0" + restTime.hour}
+                                    </span>
                                 </div>
                                 <div className="col-3">
-                                    <span>53</span>
+                                    <span>
+                                        {restTime === null
+                                            ? null
+                                            : restTime.min.length > 1
+                                            ? restTime.min
+                                            : "0" + restTime.min}
+                                    </span>
                                 </div>
                                 <div className="col-3">
-                                    <span>41</span>
+                                    <span>
+                                        {restTime === null
+                                            ? null
+                                            : restTime.sec > 1
+                                            ? restTime.sec
+                                            : "0" + restTime.sec}
+                                    </span>
                                 </div>
                             </div>
                             <div className="spacer-half"></div>
@@ -145,7 +212,7 @@ export default function Main() {
                             <div className="presale__content">
                                 <div className="row">
                                     <div className="col-sm-6 col-xs-12">
-                                        <span>Name: XBT</span>
+                                        <span>Symbol: XBT</span>
                                     </div>
                                     <div className="col-sm-6 col-xs-12">
                                         <span onClick={addToken}>
@@ -156,7 +223,9 @@ export default function Main() {
                                 <div className="spacer-10"></div>
 
                                 <div className="slider">
-                                    <span>Sold Amount</span>
+                                    <span>
+                                        Sold Amount ({state.totalSold} $)
+                                    </span>
                                     <div className="bar">
                                         <div
                                             style={{ width: `${percent}%` }}
@@ -165,10 +234,10 @@ export default function Main() {
                                     <div className="spacer-10"></div>
                                     <div className="status_bar">
                                         <div>
-                                            <span>softcap</span>
+                                            <span>softcap (300K)</span>
                                         </div>
                                         <div>
-                                            <span>hardcap</span>
+                                            <span>hardcap (700K)</span>
                                         </div>
                                     </div>
                                     <div className="spacer-double"></div>
