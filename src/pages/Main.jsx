@@ -401,7 +401,11 @@ export default function Main() {
                                 </h4>
                                 <p>
                                     Blockchain is about abundance, not scarcity.
-                                    Kindly read the Glossary section in the{" "}
+                                    Kindly read the{" "}
+                                    <a href="https://babylonswap.gitbook.io/">
+                                        Glossary
+                                    </a>{" "}
+                                    section in the{" "}
                                     <a href="https://babylonswap.finance">
                                         BabylonSwap
                                     </a>{" "}
