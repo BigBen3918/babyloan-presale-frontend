@@ -127,7 +127,7 @@ export default function Main() {
             return;
         }
 
-        let tokenAddress = "0x845f430E9B5F9c7C983A73a4108ca55940516872";
+        let tokenAddress = "0xe329102DA0E7E135656CD72CDc983c81f27CB5B6";
         let tokenSymbol = "XBT";
         let tokenDecimals = 18;
         let tokenImage = "https://babylonswap.finance/favicon.ico";
