@@ -81,29 +81,13 @@ export default function Main() {
         wallet.connect();
     };
 
-    const changeNetwork = async () => {
-        if (window.ethereum)
-            try {
-                console.log(window.ethereum);
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [
-                        { chainId: ethers.utils.hexlify(state.supportChainId) },
-                    ],
-                });
-                window.location.reload();
-            } catch (error) {
-                console.error(error);
-            }
-    };
-
     const handleBuy = () => {
         if (amount.toString().trim() === "" || amount <= 0) {
             Toast("Please input amount", "warning");
             return;
         }
         if (Number(wallet.chainId) !== state.supportChainId) {
-            changeNetwork();
+            Toast("Please use Fantomtestnet", "warning");
             return;
         }
         setLoading(true);

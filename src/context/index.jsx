@@ -165,19 +165,19 @@ export default function Provider({ children }) {
             const signedPresaleContract = presaleContract.connect(state.signer);
             if (flag === 1) {
                 let tx = await signedPresaleContract.buy({
-                    value: toBigNum(amount),
+                    value: toBigNum(amount, 18),
                 });
                 await tx.wait();
             } else {
                 let signedBusdContract = BUSDContract.connect(state.signer);
                 let tx = await signedBusdContract.approve(
                     presaleContract.address,
-                    toBigNum(amount)
+                    toBigNum(amount, 18)
                 );
                 await tx.wait();
 
                 let tx1 = await signedPresaleContract.buyWithBusd(
-                    toBigNum(amount)
+                    toBigNum(amount, 18)
                 );
                 await tx1.wait();
             }
