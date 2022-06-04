@@ -152,10 +152,12 @@ export default function Main() {
 
             {/* Begin Header */}
             <div className="container">
-                <div className="header">
-                    <img src={logo} alt="" />
-                    <h3>bayloanswap</h3>
-                </div>
+                <a href="https://babylonswap.finance">
+                    <div className="header">
+                        <img src={logo} alt="" />
+                        <h3>baylonswap</h3>
+                    </div>
+                </a>
             </div>
             {/* End Header */}
 
@@ -165,10 +167,7 @@ export default function Main() {
             <section className="mainboard">
                 <div className="container">
                     <div className="flex center middle text-center">
-                        <h2>
-                            Crypto investing, <br />
-                            simplified. DeFi Together
-                        </h2>
+                        <h2>Crypto & DeFi Investing Perfected & Simplified</h2>
                     </div>
 
                     {/* Begin Presale Card */}
@@ -248,10 +247,10 @@ export default function Main() {
                                     <div className="spacer-10"></div>
                                     <div className="status_bar">
                                         <div>
-                                            <span>softcap (300K)</span>
+                                            <span>softcap (300K $)</span>
                                         </div>
                                         <div>
-                                            <span>hardcap (700K)</span>
+                                            <span>hardcap (700K $)</span>
                                         </div>
                                     </div>
                                     <div className="spacer-double"></div>
@@ -332,14 +331,16 @@ export default function Main() {
                         <div className="col-md-4 col-sm-12">
                             <span>
                                 <img src={sub1} alt="" />
-                                <h4>
-                                    Shared <br /> transaction fees
-                                </h4>
+                                <h4>Limited Supply Vs Unlimited Demand</h4>
                                 <p>
-                                    It's no secret fees and gas costs can
-                                    quickly eat into profits. Split investment
-                                    costs across all members of a Garden and
-                                    receive a higher profit margin.
+                                    Babylon Token (XBT) is a very scarce asset
+                                    with unlimited demand from the stakers and
+                                    the players of the revolutionary Casino
+                                    BabylonGame which can be accessed from the
+                                    BabylonSwap portal. Babylon Token (XBT) is
+                                    the first ever perfectly pegged asset in
+                                    human history thanks to the unalterable
+                                    unhackable preset parameters of BabylonSwap.
                                 </p>
                             </span>
                         </div>
@@ -347,13 +348,23 @@ export default function Main() {
                             <span>
                                 <img src={sub2} alt="" />
                                 <h4>
-                                    Shared <br /> transaction fees
+                                    100% of the Presale Funds Will Go To
+                                    Strategic Adding of Liquidity:
                                 </h4>
                                 <p>
-                                    No single point of control. Deposit or
-                                    withdraw capital at any time.* Garden's are
-                                    trustless smart contracts and only you have
-                                    access to your funds.
+                                    Every BUSD and BNB that arrives to the
+                                    Babylon Treasury from this Presale will be
+                                    used to add liquidity to the XBT markets
+                                    inside BabylonSwap in the most strategic way
+                                    possible. We choose to do it strategically
+                                    to maximize the gains of the XBT hodlers and
+                                    optimize the price discovery mechanism of
+                                    XBT and make the price stabilize at the
+                                    highest possible levels. This is possible
+                                    thanks to the unhackable unalterable preset
+                                    parameters of BabylonSwap which offer the
+                                    concept of Perfect Peg for the first time in
+                                    human history.
                                 </p>
                             </span>
                         </div>
@@ -361,13 +372,19 @@ export default function Main() {
                             <span>
                                 <img src={sub3} alt="" />
                                 <h4>
-                                    Shared <br /> transaction fees
+                                    Babylon Token (XBT) is everything Satoshi
+                                    Nakamoto ever wanted but was never able to
+                                    do
                                 </h4>
                                 <p>
-                                    No need to manually claim and rebalance
-                                    profits. Gardens autocompound investment
-                                    profits across new and existing strategies
-                                    to maintain maxium capital efficiency.
+                                    Blockchain is about abundance, not scarcity.
+                                    Kindly read the Glossary section in the
+                                    BabylonSwap Website to understand exactly
+                                    what we mean and to understand why investing
+                                    any amount in this Presale will be the most
+                                    important step you’ll ever make to achieve
+                                    your natural right of being financially free
+                                    for the rest of your life.
                                 </p>
                             </span>
                         </div>
@@ -381,10 +398,12 @@ export default function Main() {
 
             {/* Begin Footer */}
             <section className="footer">
-                <div>
-                    <img src={logo} alt="" />
-                    <h3>bayloanswap</h3>
-                </div>
+                <a href="https://babylonswap.finance">
+                    <div>
+                        <img src={logo} alt="" />
+                        <h3>baylonswap</h3>
+                    </div>
+                </a>
                 <p>Copyright &copy; 2022</p>
             </section>
             {/* End Footer */}

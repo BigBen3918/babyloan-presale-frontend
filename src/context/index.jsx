@@ -134,7 +134,7 @@ export default function Provider({ children }) {
         let { startTime, period, roundCount } = props;
         if (nowTime < startTime) {
             duration = startTime - nowTime;
-            status = "Presale start in";
+            status = "Presale starts in";
             roundNum = 0;
         } else {
             if (nowTime > startTime + period * roundCount) {
@@ -144,7 +144,7 @@ export default function Provider({ children }) {
             } else {
                 roundNum = Math.floor((nowTime - startTime) / period) + 1;
                 duration = startTime + roundNum * period - nowTime;
-                status = "round end in";
+                status = "round ends in";
             }
         }
         dispatch({
