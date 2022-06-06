@@ -36,7 +36,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-transform: uppercase;
     padding: 20px;
     gap: 10px;
     img {
@@ -225,9 +224,6 @@ body {
         img {
             width: 50px;
         }
-    }
-    h3 {
-        text-transform: uppercase;
     }
 
     @media screen and (max-width: 500px) {

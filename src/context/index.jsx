@@ -24,7 +24,6 @@ export function useBlockchainContext() {
 
 function reducer(state, { type, payload }) {
     if (type == "increaseCTime") {
-        console.log("setInterval", state.cTime);
         return {
             ...state,
             cTime: state.cTime + 1,
@@ -57,6 +56,7 @@ export default function Provider({ children }) {
         getTerm();
         getPrice();
         getTotal();
+        updateTotal();
     }, []);
 
     useEffect(() => {
@@ -75,7 +75,6 @@ export default function Provider({ children }) {
 
         getSigner();
         getPrice();
-        getTotal();
     }, [wallet.status]);
 
     const getPrice = async () => {
@@ -94,6 +93,12 @@ export default function Provider({ children }) {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const updateTotal = () => {
+        setInterval(() => {
+            getTotal();
+        }, 5000);
     };
 
     const getTotal = async () => {

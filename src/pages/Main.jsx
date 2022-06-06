@@ -160,7 +160,7 @@ export default function Main() {
                 <a href="https://babylonswap.finance">
                     <div className="header">
                         <img src={logo} alt="" />
-                        <h3>baylonswap</h3>
+                        <h3>BabylonSwap</h3>
                     </div>
                 </a>
             </div>
@@ -431,7 +431,7 @@ export default function Main() {
                 <a href="https://babylonswap.finance">
                     <div>
                         <img src={logo} alt="" />
-                        <h3>baylonswap</h3>
+                        <h3>BabylonSwap</h3>
                     </div>
                 </a>
                 <p>Copyright &copy; 2022</p>
